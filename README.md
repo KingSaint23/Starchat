@@ -15,21 +15,6 @@ Utilize your personal chat assistant/group manager to make the most out of Whats
 
 ## Deployment
 
-<b>Only local deployment is working for now!</b>
-
-### Easiest Way
-
-You can deploy Starchat in minimal time without any prior knowledge using this method.
-
-1. Head over to Starchat's [Official website](https://myStarchat.com/) and create an account on heroku using your email ID.
-2. Once logged in, click on the "Deploy Starchat" button in the sidebar.
-3. Scan the QR code shown using your WhatsApp account (3 dots on top right corner -> Linked devices -> LINK A DEVICE). Click on the 'Continue'      button once done.
-4. Once the bot is linked to your account, you will come across a form which can be used to manage settings/permissions of Starchat. If required,    change the form fields. Then, click on the submit button.
-5. Wait for 1-3 minutes for the bot to start. This is a one time process. Try using the '.alive' command in any of your chats to verify whether    your bot has been deployed succesfully.
-
-Voila! You have deployed your bot in 5 easy steps. Once the bot has started successfully, you'll see a integration message on your whatsapp account.
-
-### Manually on Heroku
 
 <b>Deployment to heroku using the button is not working for now!</b>
 
