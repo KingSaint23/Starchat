@@ -42,7 +42,7 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/Prince-Mendiratta/Starchat/compare/v1.1.0...HEAD
-[1.1.0]: https://github.com/Prince-Mendiratta/Starchat/releases/tag/v1.1.0
-[1.0.1]: https://github.com/Prince-Mendiratta/Starchat/releases/tag/v1.0.1
-[1.0.0]: https://github.com/Prince-Mendiratta/Starchat/releases/tag/v1.0.0
+[Unreleased]: https://github.com/KingSaint23/Starchat/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/KingSaint23/Starchat/releases/tag/v1.1.0
+[1.0.1]: https://github.com/KingSaint23/Starchat/releases/tag/v1.0.1
+[1.0.0]: https://github.com/KingSaint23/Starchat/releases/tag/v1.0.0

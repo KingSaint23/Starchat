@@ -8,7 +8,7 @@ WORKDIR /Starchat
 
 RUN git init --initial-branch=multi-device
 
-RUN git remote add origin https://github.com/Prince-Mendiratta/Starchat.git
+RUN git remote add origin https://github.com/KingSaint23/Starchat.git
 
 RUN git fetch origin multi-device
 

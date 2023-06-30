@@ -196,7 +196,7 @@ module.exports = {
                             };
 
                             const imageUrl =
-                                "https://raw.githubusercontent.com/Prince-Mendiratta/Starchat-Resources/main/weather/" +
+                                "https://raw.githubusercontent.com/KingSaint23/Starchat-Resources/main/weather/" +
                                 imageName +
                                 ".jpg";
                             result(imageUrl, weatherDataVariables, downloading);
@@ -341,7 +341,7 @@ module.exports = {
                                 dateAndTime: dateAndTime,
                             };
                             const imageUrl =
-                                "https://raw.githubusercontent.com/Prince-Mendiratta/Starchat-Resources/main/weather/" +
+                                "https://raw.githubusercontent.com/KingSaint23/Starchat-Resources/main/weather/" +
                                 imageName +
                                 ".jpg";
 

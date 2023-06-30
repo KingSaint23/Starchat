@@ -10,7 +10,7 @@ module.exports = {
     name: "github",
     description: STRINGS.github.DESCRIPTION,
     extendedDescription: STRINGS.github.EXTENDED_DESCRIPTION,
-    demo: { isEnabled: true, text: ".github Prince-Mendiratta" },
+    demo: { isEnabled: true, text: ".github KingSaint23" },
     async handle(client: Client, chat: proto.IWebMessageInfo, Starchat: Starchat, args: string[]): Promise<void> {
         try {
             let user_name: string = "";
