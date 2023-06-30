@@ -1,0 +1,43 @@
+const { GroupSettingChange, MessageType } = require("@adiwajshing/baileys");
+const inputSanitization = require("../sidekick/input-sanitization");
+const Strings = require("../lib/db");
+const UNMUTE = Strings.unmute;
+
+module.exports = {
+    name: "unmute",
+    description: UNMUTE.DESCRIPTION,
+    extendedDescription: UNMUTE.EXTENDED_DESCRIPTION,
+    demo: { isEnabled: true, text: ".unmute" },
+    async handle(client, chat, Starchat, args) {
+        try {
+            if (!Starchat.isGroup) {
+                client.sendMessage(
+                    Starchat.chatId,
+                    UNMUTE.NOT_GROUP_CHAT,
+                    MessageType.text
+                ).catch(err => inputSanitization.handleError(err, client, Starchat));
+                return;
+            }
+            if (!Starchat.isBotGroupAdmin) {
+                client.sendMessage(
+                    Starchat.chatId,
+                    UNMUTE.NOT_ADMIN,
+                    MessageType.text
+                ).catch(err => inputSanitization.handleError(err, client, Starchat));
+                return;
+            }
+            client.groupSettingChange(
+                Starchat.chatId,
+                GroupSettingChange.messageSend,
+                false
+            );
+            client.sendMessage(
+                Starchat.chatId,
+                UNMUTE.CHAT_ALL_MEMBERS,
+                MessageType.text
+            ).catch(err => inputSanitization.handleError(err, client, Starchat));
+        } catch (err) {
+            await inputSanitization.handleError(err, client, Starchat);
+        }
+    },
+};

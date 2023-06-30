@@ -1,0 +1,99 @@
+import inputSanitization from "../sidekick/input-sanitization";
+import Strings from "../lib/db";
+import Client from "../sidekick/client.js";
+import Starchat from "../sidekick/sidekick";
+import format from "string-format";
+import { MessageType } from "../sidekick/message-type";
+import { proto } from "@adiwajshing/baileys";
+
+const MUTE = Strings.mute;
+
+module.exports = {
+    name: "mute",
+    description: MUTE.DESCRIPTION,
+    extendedDescription: MUTE.EXTENDED_DESCRIPTION,
+    demo: { isEnabled: true, text: [".mute", ".mute 10 s", ".mute 1 h"] },
+    async handle(client: Client, chat: proto.IWebMessageInfo, Starchat: Starchat, args: string[]): Promise<void> {
+        try {
+            if (!Starchat.isGroup) {
+                client.sendMessage(
+                    Starchat.chatId,
+                    MUTE.NOT_GROUP_CHAT,
+                    MessageType.text
+                ).catch(err => inputSanitization.handleError(err, client, Starchat));
+                return;
+            }
+            await client.getGroupMetaData(Starchat.chatId, Starchat);
+            if (!Starchat.isBotGroupAdmin) {
+                client.sendMessage(
+                    Starchat.chatId,
+                    MUTE.NOT_ADMIN,
+                    MessageType.text
+                ).catch(err => inputSanitization.handleError(err, client, Starchat));
+                return;
+            }
+            if (!args[0]) {
+                const ok = await client.sock.chatModify(
+                    { mute: 8*60*60*1000 },
+                    Starchat.chatId
+                ).catch(err => inputSanitization.handleError(err, client, Starchat));
+                console.log(ok);
+                client.sendMessage(
+                    Starchat.chatId,
+                    MUTE.CHAT_ADMIN_ONLY,
+                    MessageType.text
+                ).catch(err => inputSanitization.handleError(err, client, Starchat));
+                return;
+            } else if (parseInt(args[0]) === NaN) {
+                client.sendMessage(
+                    Starchat.chatId,
+                    MUTE.MENTION_DURATION,
+                    MessageType.text
+                ).catch(err => inputSanitization.handleError(err, client, Starchat));
+                return;
+            }
+
+            var duration: number = parseInt(args[0]);
+            var type: string = "minutes";
+            if (args[1] === "s") {
+                duration = duration * 1000;
+                type = "seconds";
+            } else if (args[1] === "m") {
+                duration = duration * 60 * 1000;
+                type = "minutes";
+            } else if (args[1] === "h") {
+                duration = duration * 60 * 60 * 1000;
+                type = "hours";
+            } else {
+                duration = duration * 60 * 1000; // default to minutes
+            }
+
+            await client.sock.chatModify(
+                { mute: duration },
+                Starchat.chatId
+            );
+            client.sendMessage(
+                Starchat.chatId,
+                "```Chat permissions changed to```  *admin only*  ```for " +
+                    args[0] +
+                    " " +
+                    type +
+                    ".```",
+                MessageType.text
+            ).catch(err => inputSanitization.handleError(err, client, Starchat));
+            setTimeout(async () => {
+                await client.sock.chatModify(
+                    { mute: null },
+                    Starchat.chatId
+                ).catch(err => inputSanitization.handleError(err, client, Starchat));
+                client.sendMessage(
+                    Starchat.chatId,
+                    MUTE.CHAT_ALL_MEMBERS,
+                    MessageType.text
+                ).catch(err => inputSanitization.handleError(err, client, Starchat));
+            }, duration);
+        } catch (err) {
+            await inputSanitization.handleError(err, client, Starchat);
+        }
+    },
+};
